@@ -11,14 +11,14 @@ import {
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
 
 // Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCYCNdn47auQDql0v1zufRDctf7X299aDY",
-  authDomain: "mini-hackathon2.firebaseapp.com",
-  projectId: "mini-hackathon2",
-  storageBucket: "mini-hackathon2.firebasestorage.app",
-  messagingSenderId: "901429277858",
-  appId: "1:901429277858:web:4a15f8b7fca2b2043b93fb",
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyCYCNdn47auQDql0v1zufRDctf7X299aDY",
+    authDomain: "mini-hackathon2.firebaseapp.com",
+    projectId: "mini-hackathon2",
+    storageBucket: "mini-hackathon2.firebasestorage.app",
+    messagingSenderId: "901429277858",
+    appId: "1:901429277858:web:4a15f8b7fca2b2043b93fb"
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
