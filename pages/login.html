@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hackathon_ Login</title>
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ:wght@100..400&display=swap" rel="stylesheet">
+
+     <!-- sweet alert2 -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.17/dist/sweetalert2.min.css">
+
+    <!-- custom style sheet -->
+    <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body class="auth-page ">
+
+    <!-- --------sign up ------- -->
+    <div class="wrapper">
+        <h1>Log In</h1>
+        <p>Don't have an account ? <a href="./signup.html" style="color:var(--accent-clr)">Sign UP</a></p>
+        <div class="form-wrapper">
+            <form action="" class="form-sec" id="logInForm">
+             <label for="name">
+                <input type="text" id="name" placeholder="Name">
+             </label>
+             <label for="email">
+                <input type="email" id="email" placeholder="Your Email" required>
+             </label>
+             <label for="Password">
+                <input type="password" id="Password" placeholder="Enter your Password" required>
+             </label>
+             <button id="logIn" class="cta-button-fill">Log In</button>
+             <button id="forgotPassword">Forgot Password?</button>
+             <p id="errorMsgLogin" class="error"></p>
+            </form>
+            <div class="partition">
+               <span > OR</span>
+            </div>
+            <div class="provider-sec">
+             <div class="button-wrapper">
+               <img src="../image.png" alt="" width="30px">
+               <button>Continue with Google</button>
+             </div>
+            </div>
+        </div>
+    </div>
+
+     <!-- sweet aler2 js -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.17/dist/sweetalert2.all.min.js"></script>
+
+    <!-- script module with firebase -->
+
+    <script type="module" src="../index.js"></script>
+</body>
+
+</html>
