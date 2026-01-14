@@ -7,8 +7,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  onAuthStateChanged 
-} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+  onAuthStateChanged  ,
+  sendPasswordResetEmail
+} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
   const firebaseConfig = {
@@ -30,6 +31,7 @@ export {
   sendEmailVerification,
   signInWithEmailAndPassword,
   signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged 
+  GoogleAuthProvider ,
+  onAuthStateChanged,
+ sendPasswordResetEmail,
 };

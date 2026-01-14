@@ -4,8 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+      <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ:wght@100..400&display=swap" rel="stylesheet">
+
+     <!-- sweet alert2 -->
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.17/dist/sweetalert2.min.css">
+
+    <!-- custom style sheet -->
+    <link rel="stylesheet" href="../style.css" />
+    
+    <style>
+
+       #blogForm{
+       padding-top: 3rem;
+       gap:1rem ;
+       width: 100%;
+       max-width: 800px;
+       margin: 0 auto;
+       }
+       #blogForm * {
+        width: 100%;
+        text-align: center;
+
+       }
+       #blogForm button{
+       width: fit-content;
+       }
+
+       textarea{
+        height: 200px;
+       }
+    </style>
 </head>
 <body>
-    <h1>create</h1>
+
+<form id="blogForm">
+    <label for="title">Blog Title</label>
+    <input type="text" id="title" name="title" placeholder="Enter your blog name">
+
+    <label for="categories">Category</label>
+    <select id="categories" name="category">
+        <option value="travel">Travel</option>
+        <option value="education">Education</option>
+        <option value="health">Health</option>
+        <option value="food">Food</option>
+    </select>
+
+    <label for="description">Description</label>
+    <textarea id="description" name="description" placeholder="Write your blog..."></textarea>
+
+    <label for="cover-img">Cover Image</label>
+    <input type="file" id="cover-img" name="cover-img">
+
+    <button type="submit" class="cta-button-fill">Add Blog</button>
+</form>
+
+
+    <!-- sweet aler2 js -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.17/dist/sweetalert2.all.min.js"></script>
+
+  <script src="../blog.js"></script>
 </body>
 </html>
