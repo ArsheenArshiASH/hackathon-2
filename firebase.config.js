@@ -11,7 +11,9 @@ import {
   sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
 
-import { getFirestore ,collection, addDoc, serverTimestamp} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
+import { getFirestore ,collection, addDoc, serverTimestamp ,  onSnapshot,
+  query,
+  orderBy, getDoc , doc} from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 // Your web app's Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyCYCNdn47auQDql0v1zufRDctf7X299aDY",
@@ -40,5 +42,10 @@ export {
  db ,
  collection, 
  addDoc,
- serverTimestamp
+ serverTimestamp,
+  onSnapshot,
+  query,
+  orderBy,
+  doc,
+  getDoc
 };

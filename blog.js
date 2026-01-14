@@ -1,4 +1,4 @@
-import { addDoc, auth, collection, db, onAuthStateChanged , serverTimestamp } from "./firebase.config.js";
+import { addDoc, auth, collection, db, doc, getDoc, onAuthStateChanged , onSnapshot, orderBy, query, serverTimestamp } from "./firebase.config.js";
 
 const blogForm = document.getElementById("blogForm");
 
@@ -35,7 +35,7 @@ const createBlog = async () => {
     const description = document.getElementById("description").value.trim();
     const category = document.getElementById("categories").value;
     const coverImgFile = document.getElementById("cover-img").files[0];
-
+    const authorName = document.getElementById("authorName").value ;
     if (!title || !description || !category || !coverImgFile) {
       alert("All fields are required");
       return;
@@ -51,6 +51,7 @@ const createBlog = async () => {
       category,
       coverImg: coverImgURL, // ✅ cloudinary link
       authorId: auth.currentUser.uid,
+      authorName,
       createdAt: serverTimestamp(),
     });
 
@@ -85,3 +86,130 @@ blogForm?.addEventListener("submit", (e) => {
 
 
 // get all  blogs and display it in ui
+
+
+const blogsContainer = document.getElementById("blogsContainer");
+const filterButtons = document.querySelectorAll(".category-filters button");
+
+let allBlogs = [];
+
+// format firestore timestamp
+const formatDate = (timestamp) => {
+  if (!timestamp) return "";
+  return timestamp.toDate().toLocaleDateString();
+};
+
+// render blogs
+// cut description
+function truncateWords(text, wordLimit = 20) {
+  if (!text) return "";
+  const words = text.split(/\s+/); // split by spaces
+  if (words.length <= wordLimit) return text;
+  return words.slice(0, wordLimit).join(" ") + "...";
+}
+
+
+const renderBlogs = (blogs) => {
+  if (!blogsContainer) return;
+  blogsContainer.innerHTML = "";
+
+  blogs.forEach((blog) => {
+    const shortDescription = truncateWords(blog.description, 40); // first 40 words
+
+    blogsContainer.innerHTML += `
+      <div class="blog-card">
+        <img src="${blog.coverImg}" alt="${blog.title}">
+        <div class="content">
+          <h3>${blog.title}</h3>
+          <div class="blog-meta">By ${blog.authorName} • ${formatDate(blog.createdAt)}</div>
+          <p>${shortDescription}</p>
+          <button onclick="viewDetails('${blog.id}')">View Details</button>
+        </div>
+      </div>
+    `;
+  });
+};
+
+
+
+// live listener
+const q = query(
+  collection(db, "blogs"),
+  orderBy("createdAt", "desc")
+);
+
+onSnapshot(q, (snapshot) => {
+  allBlogs = snapshot.docs.map(doc => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+
+  renderBlogs(allBlogs);
+});
+
+// filter logic
+filterButtons?.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    filterButtons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const category = btn.dataset.category;
+
+    if (category === "all") {
+      renderBlogs(allBlogs);
+    } else {
+      const filtered = allBlogs.filter(
+        blog => blog.category === category
+      );
+      renderBlogs(filtered);
+    }
+  });
+});
+
+// navigate to detail page
+window.viewDetails = (id) => {
+  window.location.href = `./blog-detail.html?id=${id}`;
+};
+
+
+
+// blog details
+
+
+
+const blogDetail = document.getElementById("blogDetail");
+
+if (blogDetail) {
+  const params = new URLSearchParams(window.location.search);
+  const blogId = params.get("id");
+
+  if (!blogId) {
+    console.error("Blog ID missing in URL");
+    blogDetail.innerHTML = "<p>Blog not found</p>";
+  } else {
+    const getBlog = async () => {
+      try {
+        const docRef = doc(db, "blogs", blogId);
+        const snap = await getDoc(docRef);
+
+        if (snap.exists()) {
+          const blog = snap.data();
+          blogDetail.innerHTML = `
+            <h1>${blog.title}</h1>
+            <p>By ${blog.authorName}</p>
+            <img src="${blog.coverImg}">
+            <p>${blog.description}</p>
+          `;
+        } else {
+          blogDetail.innerHTML = "<p>Blog not found</p>";
+        }
+      } catch (err) {
+        console.error(err);
+        blogDetail.innerHTML = "<p>Error loading blog</p>";
+      }
+    };
+
+    getBlog();
+  }
+}
+
